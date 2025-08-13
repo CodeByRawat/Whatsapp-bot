@@ -1,44 +1,4 @@
-# app.py — WhatsApp bot (Twilio + Flask) with local LlamaCpp (Mistral/Qwen/etc), auto-“Hi” on startup,
-#           and simple conversation replies + clear IN/OUT logging.
-#
-# What it does
-# 1) On server start, reads contacts.xlsx and sends "Hi" to every number (one-by-one, with pacing).
-# 2) When someone replies on WhatsApp, generates a short reply using your LOCAL GGUF model
-#    (via llama-cpp-python) in a background thread, then sends it via Twilio REST.
-# 3) Logs every incoming and outgoing message in the terminal:
-#       [AUTO-SEND] / [INCOMING] / [OUTGOING]
-#
-# Requirements (install in your env):
-#   pip install flask python-dotenv twilio pandas openpyxl langchain langchain-community llama-cpp-python
-#
-# .env (put next to this file). Example:
-#   TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxx     # or use API key auth (see below)
-#   TWILIO_AUTH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#   # Accept either of these var names for the sender:
-#   TWILIO_WHATSAPP_NUMBER=whatsapp:+14155238886
-#   # or
-#   # TWILIO_WHATSAPP_FROM=whatsapp:+14155238886
-#
-#   # LOCAL model (GGUF path)
-#   MODEL_PATH=S:/Whatsapp chatbot project/Models/mistral-7b-instruct-v0.2.Q4_K_M.gguf
-#   # Suggested smaller models for speed on CPU:
-#   # MODEL_PATH=S:/Whatsapp chatbot project/Models/qwen2-1_5b-instruct.Q4_K_M.gguf
-#   # MODEL_PATH=S:/Whatsapp chatbot project/Models/mistral-nemo-2b-instruct.Q4_K_M.gguf
-#
-#   # Llama.cpp tuning
-#   LLM_N_THREADS=4
-#   LLM_N_CTX=1024
-#   LLM_MAX_TOKENS=60
-#   LLM_TEMPERATURE=0.5
-#
-#   # Excel + defaults
-#   EXCEL_PATH=S:/Whatsapp chatbot project/contacts.xlsx
-#   DEFAULT_COUNTRY_CODE=+91
-#
-# Notes:
-# - Twilio Sandbox can ONLY message numbers that have joined your sandbox once.
-# - Auto-send on startup will consume your daily Twilio quota. Disable it by commenting out send_hi_to_all()
-#   in __main__ if you hit daily limit errors (e.g., 63038).
+
 
 import os
 import time
@@ -291,3 +251,4 @@ if __name__ == "__main__":
 
     # 2) Start the server
     app.run(host="0.0.0.0", port=5000, debug=False, use_reloader=False, threaded=True)
+
